@@ -1,3 +1,6 @@
+Open this project -> run `npm i` in your cmd and then `npm start`
+to look this project working
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
