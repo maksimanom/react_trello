@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
@@ -7,13 +7,14 @@ import Grid from "@material-ui/core/Grid";
 import Header from "./Component/Header";
 import Boards from "./Component/Boards";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .boards":{
+    height: "100%",
+    background: "#3F51B5",
+    "& .boards": {
       width: "auto",
-      minWidth: '100%'
-    }
+      minWidth: "100%",
+    },
   },
 }));
 

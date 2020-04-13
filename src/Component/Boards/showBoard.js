@@ -9,6 +9,8 @@ import {
   TextField,
   Button,
 } from "@material-ui/core/";
+
+import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
 import changeCardName from "../../utils/changeCardName";
 
@@ -25,17 +27,6 @@ const useStyles = makeStyles((theme) => ({
       },
       "& .MuiInput-underline:before": {
         borderBottom: "none",
-      },
-    },
-    "& .board-item": {
-      backgroundColor: "#f7f7f7",
-      margin: "1px 0",
-      display: "block",
-      wordBreak: "break-word",
-      overflow: "hidden",
-      "&:hover": {
-        backgroundColor: "#737373",
-        color: "#fff",
       },
     },
     "& .add-board-item": {
@@ -81,11 +72,17 @@ const Board = ({ boardItem, boards, setBoards }) => {
     }
   };
   const handleOnBlur = () => {
-    if (newCardName !== "") {      
+    if (newCardName !== "") {
       const newBoards = changeCardName(boards, boardItem.id, newCardName);
       setBoards(newBoards);
     }
   };
+
+  // let z = new Date();
+  // let y = z.getFullYear();
+  // let m = z.getMonth();
+  // let d = z.getDate();
+  // let h = new Date(y, m, d).toLocaleString();
 
   return (
     <List component={Paper} className={classes.root}>
@@ -104,11 +101,12 @@ const Board = ({ boardItem, boards, setBoards }) => {
         />
       </ListItem>
       <Divider component="span" />
-      {boardItem.tasks.map((task, index) => {
+      {boardItem.tasks.map((card, index) => {
         return (
-          <ListItem button key={index} className="board-item">
-            {task.text}
-          </ListItem>
+          // <ListItem button key={index} className="board-item">
+          //   {card.text}
+          // </ListItem>
+          <ShowCard key={index} card={card}/>
         );
       })}
       {!visibleAddCardBlock ? (

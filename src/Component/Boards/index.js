@@ -9,7 +9,6 @@ import addBoard from "../../utils/addBoard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#3F51B5",
     padding: "10px 0 10px 30px",
     overflow: "auto",
     color: "#000",
