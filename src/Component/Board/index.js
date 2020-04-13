@@ -9,11 +9,11 @@ import addBoard from "../../utils/addBoard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "10px 0 10px 30px",
     overflow: "auto",
     color: "#000",
     display: "flex",
     flexFlow: "row nowrap",
+    margin: 10,
     "& .MuiButton-root": {
       background: "rgba(255, 255, 255, 0.5)",
       color: "#fff",
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .add-board-button": {
       height: "fit-content",
-      minWidth: 200
+      minWidth: 200,
     },
     "& .add-board-wrapper": {
       padding: 5,
@@ -48,8 +48,10 @@ const Boards = () => {
   } = React.useContext(StoreContext);
   const [visibleAddNewBoard, setVisibleAddNewBoard] = React.useState(false);
   const [addBoardInputValue, setAddBoardInputValue] = React.useState("");
+
   useEffect(() => {
     console.log("boards in index:\n", boards);
+    localStorage.setItem("trello_boards", JSON.stringify(boards));
   }, [boards]);
 
   const handleClick = (e) => {
@@ -57,7 +59,8 @@ const Boards = () => {
       setVisibleAddNewBoard(!visibleAddNewBoard);
     }
     if (e.target.name === "add-board") {
-      addBoard(boards, addBoardInputValue);
+      addBoard(boards, addBoardInputValue, setBoards);
+      setVisibleAddNewBoard(!visibleAddNewBoard);
     }
   };
   const handleChange = (e) => {

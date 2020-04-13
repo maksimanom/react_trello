@@ -5,7 +5,6 @@ const changeCardName = (boards, boardId, newCardName) => {
     }
     return board;
   });
-  console.log(newArray);
   return newArray;
 };
 export default changeCardName;

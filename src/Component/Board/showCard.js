@@ -2,8 +2,13 @@ import React from "react";
 import { makeStyles, ListItem, Tooltip, Box } from "@material-ui/core/";
 import classnames from "classnames";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
+  link:{
+    textDecoration: 'none',
+    color: "inherit"
+  },
   root: {
     backgroundColor: "#f7f7f7",
     margin: "1px 0",
@@ -61,29 +66,29 @@ const daysDifference = (cardDateEnd) => {
   return daysLeft;
 };
 
-const ShowCard = ({ card }) => {
+const ShowCard = ({ card, boardId }) => {
   const classes = useStyles();
-
   const daysLeft = daysDifference(card.dateEnd);
 
   return (
-    <ListItem button className={classes.root}>
-      <div
-        className={classnames(
-          "card",
-          { cardForOneDay: daysLeft === 1 },
-          { cardInEndingDay: daysLeft == 0 },
-          { cardExpired: daysLeft < 0 }
-        )}
-      >
-        <Tooltip title={"Finish to: " + card.dateEnd} placement="top">
-          <Box>
-            <p>{card.text}</p>
-          </Box>
-        </Tooltip>
-      </div>
-    </ListItem>
+    <Link to={`/card/${boardId}/${card.id}`} className={classes.link}>
+      <ListItem button className={classes.root}>
+        <div
+          className={classnames(
+            "card",
+            { cardForOneDay: daysLeft === 1 },
+            { cardInEndingDay: daysLeft == 0 },
+            { cardExpired: daysLeft < 0 }
+          )}
+        >
+          <Tooltip title={"Finish to: " + card.dateEnd} placement="top">
+            <Box>
+              <p>{card.text}</p>
+            </Box>
+          </Tooltip>
+        </div>
+      </ListItem>
+    </Link>
   );
 };
-// это доделать для даты
 export default ShowCard;

@@ -78,12 +78,6 @@ const Board = ({ boardItem, boards, setBoards }) => {
     }
   };
 
-  // let z = new Date();
-  // let y = z.getFullYear();
-  // let m = z.getMonth();
-  // let d = z.getDate();
-  // let h = new Date(y, m, d).toLocaleString();
-
   return (
     <List component={Paper} className={classes.root}>
       <ListItem className="board-title">
@@ -103,10 +97,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
       <Divider component="span" />
       {boardItem.tasks.map((card, index) => {
         return (
-          // <ListItem button key={index} className="board-item">
-          //   {card.text}
-          // </ListItem>
-          <ShowCard key={index} card={card}/>
+          <ShowCard key={index} card={card} boardId={boardItem.id}/>
         );
       })}
       {!visibleAddCardBlock ? (

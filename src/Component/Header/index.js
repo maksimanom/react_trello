@@ -5,7 +5,7 @@ import { AppBar, Typography, Toolbar, TextField } from "@material-ui/core/";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: "#0079BF",
+    padding: "10px 0 10px 10px"
   },
 }));
 
@@ -13,12 +13,10 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <AppBar position="static" component="header">
-      <Toolbar variant="dense">
+    <AppBar position="static" component="header" className={classes.root}>
         <Typography variant="h6" color="inherit">
           Your Trello board
         </Typography>
-      </Toolbar>
     </AppBar>
   );
 };
