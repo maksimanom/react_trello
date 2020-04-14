@@ -9,6 +9,8 @@ import {
   TextField,
   Button,
 } from "@material-ui/core/";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 
 import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
@@ -77,7 +79,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
       const newBoards = changeCardData(boards, boardItem.id, newCardName);
       setBoards(newBoards);
     }
-  };  
+  };
 
   return (
     <List component={Paper} className={classes.root}>
@@ -96,11 +98,11 @@ const Board = ({ boardItem, boards, setBoards }) => {
         />
       </ListItem>
       <Divider component="span" />
-      {boardItem.tasks.map((card, index) => {
-        return (
-          <ShowCard key={index} card={card} boardId={boardItem.id}/>
-        );
-      })}
+      <DndProvider backend={Backend}>
+        {boardItem.tasks.map((card, index) => {
+          return <ShowCard key={index} card={card} boardId={boardItem.id} />;
+        })}
+      </DndProvider>
       {!visibleAddCardBlock ? (
         <ListItem
           button
