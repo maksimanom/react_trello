@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 
 import {
   makeStyles,
@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core/";
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
+import update from "immutability-helper";
 
 import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
@@ -54,6 +55,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
   const [inputNewCardName, setInputNewCardName] = React.useState("");
   const [newCardName, setNewCardName] = React.useState(boardItem.title);
   const [visibleAddCardBlock, setVisibleAddCardBlock] = React.useState(false);
+  const [tasks, setTasks] = React.useState(boardItem.tasks);
 
   const handleChange = (e) => {
     if (e.target.name === "new-card") setInputNewCardName(e.target.value);
@@ -80,6 +82,20 @@ const Board = ({ boardItem, boards, setBoards }) => {
       setBoards(newBoards);
     }
   };
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = tasks[dragIndex];
+      setTasks(
+        update(tasks, {
+          $splice: [
+            [dragIndex, 1],
+            [hoverIndex, 0, dragCard],
+          ],
+        })
+      );
+    },
+    [tasks]
+  );
 
   return (
     <List component={Paper} className={classes.root}>
@@ -99,8 +115,16 @@ const Board = ({ boardItem, boards, setBoards }) => {
       </ListItem>
       <Divider component="span" />
       <DndProvider backend={Backend}>
-        {boardItem.tasks.map((card, index) => {
-          return <ShowCard key={index} card={card} boardId={boardItem.id} />;
+        {tasks.map((card, index) => {
+          return (
+            <ShowCard
+              key={index}
+              card={card}
+              boardId={boardItem.id}
+              index={index}
+              moveCard={moveCard}
+            />
+          );
         })}
       </DndProvider>
       {!visibleAddCardBlock ? (
