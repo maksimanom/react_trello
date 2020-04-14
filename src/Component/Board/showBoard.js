@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
     minWidth: 250,
     maxWidth: 400,
+    height: "fit-content",
     backgroundColor: "#fff",
     "& .board-title": {
       textAlign: "center",
