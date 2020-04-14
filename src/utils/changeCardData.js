@@ -1,4 +1,4 @@
-const changeCardName = (boards, boardId, newCardName) => {
+const changeCardData = (boards, boardId, newCardName) => {
   let newArray = boards.map((board) => {
     if (board.id === boardId) {
       board.title = newCardName;
@@ -7,4 +7,4 @@ const changeCardName = (boards, boardId, newCardName) => {
   });
   return newArray;
 };
-export default changeCardName;
+export default changeCardData;

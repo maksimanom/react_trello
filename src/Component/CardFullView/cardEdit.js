@@ -2,7 +2,12 @@ import React from "react";
 
 import { withRouter } from "react-router-dom";
 import { makeStyles, Paper, Box, TextField, Button } from "@material-ui/core/";
-import { Link } from "react-router-dom";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
+import moment from "moment";
 
 import { StoreContext } from "../../utils/store";
 import changeBoards from "../../utils/changeBoards";
@@ -30,29 +35,27 @@ const getCardInfo = (boards, boardId, cardId) => {
   cardId = parseInt(cardId);
   let cardTextDefault = "";
   let cardDescriptionDefault = "";
+  let cardDateEnd = "";
   boards.map((board) => {
     if (board.id === boardId) {
-      board.tasks.map((task) => {
-        if (task.id === cardId) {
-          cardTextDefault = task.text;
-          cardDescriptionDefault = task.description;
+      board.tasks.map((card) => {
+        if (card.id === cardId) {
+          cardTextDefault = card.text;
+          cardDescriptionDefault = card.description;
+          cardDateEnd = card.dateEnd;
         }
         return 0;
       });
     }
   });
-  return { cardTextDefault, cardDescriptionDefault };
+  return { cardTextDefault, cardDescriptionDefault, cardDateEnd };
 };
 
 const CardEdit = (props) => {
   const classes = useStyles();
-  const { match } = props;
-  
+  const { boards, setBoards, match } = props;
   const { boardId, cardId } = match.params;
-  const {
-    ["boards"]: [boards, setBoards],
-  } = React.useContext(StoreContext);
-  const { cardTextDefault, cardDescriptionDefault } = getCardInfo(
+  const { cardTextDefault, cardDescriptionDefault, cardDateEnd } = getCardInfo(
     boards,
     boardId,
     cardId
@@ -61,6 +64,12 @@ const CardEdit = (props) => {
   const [cardDescription, setCardDescription] = React.useState(
     cardDescriptionDefault
   );
+  const [selectedDate, setSelectedDate] = React.useState(
+    cardDateEnd || new Date()
+  );
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
   const handleChange = (e) => {
     if (e.target.name === "cardText") {
       setCardText(e.target.value);
@@ -70,7 +79,15 @@ const CardEdit = (props) => {
     }
   };
   const handleClick = () => {
-    changeBoards(setBoards, boards, boardId, cardId, cardText, cardDescription);
+    changeBoards(
+      setBoards,
+      boards,
+      boardId,
+      cardId,
+      cardText,
+      cardDescription,
+      selectedDate
+    );
     props.history.push("/");
   };
 
@@ -90,6 +107,19 @@ const CardEdit = (props) => {
         name="cardDescription"
         onChange={(e) => handleChange(e)}
       ></TextField>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          margin="normal"
+          id="date-picker-dialog"
+          label="Date picker dialog"
+          format="yyyy/MM/dd"
+          value={selectedDate}
+          onChange={handleDateChange}
+          KeyboardButtonProps={{
+            "aria-label": "change date",
+          }}
+        />
+      </MuiPickersUtilsProvider>
       <Button onClick={(e) => handleClick(e)}>Save</Button>
     </Box>
   );

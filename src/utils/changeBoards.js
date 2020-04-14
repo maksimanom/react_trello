@@ -4,7 +4,8 @@ const changeBoards = (
   boardId,
   cardId,
   cardText,
-  cardDescription
+  cardDescription,
+  cardDateEnd
 ) => {
   const newBoards = boards.map((board) => {
     boardId = parseInt(boardId);
@@ -14,6 +15,7 @@ const changeBoards = (
         if (card.id === cardId) {
           card.text = cardText;
           card.description = cardDescription;
+          card.dateEnd = new Date(cardDateEnd);
         }
       });
     }

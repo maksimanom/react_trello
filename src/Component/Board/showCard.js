@@ -49,20 +49,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const daysDifference = (cardDateEnd) => {
+const daysDifference = (cardDateEnd) => {  
   const dateToday = new Date();
-  const todayMoment = moment([
+  const today = moment([
     dateToday.getFullYear(),
-    dateToday.getMonth() + 1,
+    dateToday.getMonth(),
     dateToday.getDate(),
-  ]);
-  const dateEnd = cardDateEnd.split(".");
-  const dateEndMoment = moment(
-    dateEnd.map((str) => {
-      return parseInt(str);
-    })
-  );
-  const daysLeft = dateEndMoment.diff(todayMoment, "days");
+  ]); 
+  const dateEnd = moment(cardDateEnd);  
+  const daysLeft = dateEnd.diff(today, "days");
+  
   return daysLeft;
 };
 
@@ -77,11 +73,11 @@ const ShowCard = ({ card, boardId }) => {
           className={classnames(
             "card",
             { cardForOneDay: daysLeft === 1 },
-            { cardInEndingDay: daysLeft == 0 },
+            { cardInEndingDay: (daysLeft === 0 && card.dateEnd!==undefined)},
             { cardExpired: daysLeft < 0 }
           )}
         >
-          <Tooltip title={"Finish to: " + card.dateEnd} placement="top">
+          <Tooltip title={"Finish to: " + (card.dateEnd || "no info")} placement="top">
             <Box>
               <p>{card.text}</p>
             </Box>

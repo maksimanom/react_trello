@@ -6,7 +6,7 @@ const addCardToBoard = (boards, boardId, text) => {
         id = board.tasks.reduce((prev, cur) => {
         return prev.id>cur.id ? prev.id : cur.id;
       }); }
-      board.tasks.push({ id: id + 1, text: text, dateEnd: "no" });
+      board.tasks.push({ id: id + 1, text: text });
     }
     return board
   });  

@@ -12,7 +12,7 @@ import {
 
 import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
-import changeCardName from "../../utils/changeCardName";
+import changeCardData from "../../utils/changeCardData";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,10 +73,10 @@ const Board = ({ boardItem, boards, setBoards }) => {
   };
   const handleOnBlur = () => {
     if (newCardName !== "") {
-      const newBoards = changeCardName(boards, boardItem.id, newCardName);
+      const newBoards = changeCardData(boards, boardItem.id, newCardName);
       setBoards(newBoards);
     }
-  };
+  };  
 
   return (
     <List component={Paper} className={classes.root}>
