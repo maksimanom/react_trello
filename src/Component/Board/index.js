@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Button, makeStyles, TextField, Box, Paper } from "@material-ui/core/";
+import { makeStyles } from "@material-ui/core/";
 
 import Board from "./showBoard";
 import AddBoardBlock from "./addBoardBlock";
@@ -39,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Boards = ({boards, setBoards}) => {
+const Boards = ({ boards, setBoards }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    console.error("BOARDS IN INDEX:\n", boards);
-  }, [boards]);  
+    localStorage.setItem("trello_boards", JSON.stringify(boards));
+  }, [boards]);
 
   return (
     <main className={classes.root}>
@@ -58,7 +58,7 @@ const Boards = ({boards, setBoards}) => {
           ></Board>
         );
       })}
-      <AddBoardBlock boards={boards} setBoards={setBoards}/>
+      <AddBoardBlock boards={boards} setBoards={setBoards} />
     </main>
   );
 };

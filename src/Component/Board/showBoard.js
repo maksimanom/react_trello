@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 
 import {
   makeStyles,
@@ -16,6 +16,8 @@ import update from "immutability-helper";
 import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
 import changeCardData from "../../utils/changeCardData";
+import changeBoardsAfterDnd from "../../utils/changeBoardsAfterDnd";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +59,10 @@ const Board = ({ boardItem, boards, setBoards }) => {
   const [visibleAddCardBlock, setVisibleAddCardBlock] = React.useState(false);
   const [tasks, setTasks] = React.useState(boardItem.tasks);
 
+  useEffect(()=>{
+    changeBoardsAfterDnd(boards, setBoards, boardItem.id, tasks);
+  },[tasks]);
+
   const handleChange = (e) => {
     if (e.target.name === "new-card") setInputNewCardName(e.target.value);
     if (e.target.name === "board-title__input") setNewCardName(e.target.value);
@@ -96,7 +102,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
     },
     [tasks]
   );
-
+  
   return (
     <List component={Paper} className={classes.root}>
       <ListItem className="board-title">

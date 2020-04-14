@@ -7,9 +7,6 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import moment from "moment";
-
-import { StoreContext } from "../../utils/store";
 import changeBoards from "../../utils/changeBoards";
 
 const useStyles = makeStyles((theme) => ({
