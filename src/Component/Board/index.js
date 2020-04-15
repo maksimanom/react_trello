@@ -13,15 +13,16 @@ const useStyles = makeStyles((theme) => ({
     flexFlow: "row nowrap",
     padding: 10,
     height: "100%",
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
+    "& .board-wrapper":{
+      display: 'flex',
+      height: "100%",
+      alignItems: 'flex-start',
+    },
     "& .MuiButton-root": {
       background: "rgba(255, 255, 255, 0.5)",
       color: "#fff",
       fontSize: 14,
-    },
-    "& .add-board-button": {
-      height: "fit-content",
-      minWidth: 200,
     },
     "& .add-board-wrapper": {
       padding: 5,
@@ -50,16 +51,18 @@ const Boards = ({ boards, setBoards }) => {
 
   return (
     <main className={classes.root}>
-      {boards.map((boardItem, index) => {
-        return (
-          <Board
-            key={index}
-            boardItem={boardItem}
-            boards={boards}
-            setBoards={setBoards}
-          ></Board>
-        );
-      })}
+      <div className="board-wrapper">
+        {boards.map((boardItem, index) => {
+          return (
+            <Board
+              key={index}
+              boardItem={boardItem}
+              boards={boards}
+              setBoards={setBoards}
+            ></Board>
+          );
+        })}
+      </div>
       <AddBoardBlock boards={boards} setBoards={setBoards} />
     </main>
   );

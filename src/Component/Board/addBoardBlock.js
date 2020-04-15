@@ -1,18 +1,27 @@
 import React from "react";
 
-import { Button, TextField, Box, Paper } from "@material-ui/core/";
+import { Button, TextField, Box, Paper, makeStyles } from "@material-ui/core/";
 import AddIcon from "@material-ui/icons/Add";
 import addBoard from "../../utils/addBoard";
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+  },
+  addButton: {
+    minWidth: 250,
+  }
+}));
+
 const AddBoardBlock = ({ boards, setBoards }) => {
+  const classes= useStyles();
   const [visibleAddNewBoard, setVisibleAddNewBoard] = React.useState(false);
   const [addBoardInputValue, setAddBoardInputValue] = React.useState("");
 
   const handleClick = (e) => {
-    if (e.target.name === "add-another-board-button") {
+    if (e.currentTarget.name === "add-another-board-button") {
       setVisibleAddNewBoard(!visibleAddNewBoard);
     }
-    if (e.target.name === "add-board") {
+    if (e.currentTarget.name === "add-board" && addBoardInputValue!=="") {
       addBoard(boards, addBoardInputValue, setBoards);
       setVisibleAddNewBoard(!visibleAddNewBoard);
     }
@@ -29,7 +38,7 @@ const AddBoardBlock = ({ boards, setBoards }) => {
         <Button
           variant="contained"
           name="add-another-board-button"
-          className="add-board-button"
+          className={classes.addButton}
           startIcon={<AddIcon />}
           onClick={(e) => handleClick(e)}
         >

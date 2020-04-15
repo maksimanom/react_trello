@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
     minWidth: 250,
     maxWidth: 400,
-    height: "100%",
-    overflowY: 'scroll',
+    overflowY: "scroll",
+    maxHeight: "100%",
     backgroundColor: "#fff",
     "& .board-title": {
       textAlign: "center",
@@ -60,19 +60,19 @@ const Board = ({ boardItem, boards, setBoards }) => {
   const [visibleAddCardBlock, setVisibleAddCardBlock] = React.useState(false);
   const [tasks, setTasks] = React.useState(boardItem.tasks);
 
-  useEffect(()=>{
+  useEffect(() => {
     changeBoardsAfterDnd(boards, setBoards, boardItem.id, tasks);
-  },[tasks]);
+  }, [tasks]);
 
   const handleChange = (e) => {
     if (e.target.name === "new-card") setInputNewCardName(e.target.value);
     if (e.target.name === "board-title__input") setNewCardName(e.target.value);
   };
   const handleClick = (e) => {
-    if (e.target.name === "change-add-card-visibility") {
+    if (e.currentTarget.name === "change-add-card-visibility") {
       setVisibleAddCardBlock(!visibleAddCardBlock);
     }
-    if (e.target.name === "add-card-block__button") {
+    if (e.currentTarget.name === "add-card-block__button" && inputNewCardName!=="") {
       const boardsWithNewCard = addCardToBoard(
         boards,
         boardItem.id,
@@ -88,6 +88,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
       const newBoards = changeCardData(boards, boardItem.id, newCardName);
       setBoards(newBoards);
     }
+    if (newCardName==="") setNewCardName(boardItem.title)
   };
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
@@ -103,7 +104,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
     },
     [tasks]
   );
-  
+
   return (
     <List component={Paper} className={classes.root}>
       <ListItem className="board-title">
