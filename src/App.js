@@ -9,16 +9,19 @@ import Header from "./Component/Header";
 import Boards from "./Component/Board";
 import CardEdit from "./Component/CardFullView/cardEdit";
 
+document.querySelector("html").style.height = "100%";
+document.querySelector("body").style.height = "100%";
+document.querySelector(".root").style.height = "100%";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
-    background: "#3F51B5",
-    flexDirection: "column",
-    flexWrap: "nowrap",
+    background: theme.palette.main,
+    display: "block",
     "& .boards": {
       width: "auto",
       minWidth: "100%",
-      height: "calc( 100% - 52px )"
+      height: "calc( 100% - 52px )",
     },
   },
 }));

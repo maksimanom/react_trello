@@ -11,18 +11,31 @@ import changeBoards from "../../utils/changeBoards";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    height: "calc( 100% - 52px )",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    width: 500,
+    width: "100%",
     background: "transparent",
-    "& .MuiTextField-root	": {
+    "& .editor-wrapper": {
+      width: "50%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
       background: "#fff",
-    },
-    "& .MuiButton-root	": {
-      backgroundColor: "#5AAC44",
-      color: "#fff",
+      borderRadius: 3,
+      padding: 10,
+      "& .text-input-field":{
+        padding: 10
+      },
+      "& .MuiTextField-root	": {
+        background: "#fff",
+      },
+      "& .MuiButton-root	": {
+        backgroundColor: "#5AAC44",
+        color: "#fff",
+      },
     },
   },
 }));
@@ -89,35 +102,41 @@ const CardEdit = (props) => {
   };
 
   return (
-    <Box className={classes.root} component={Paper}>
-      <TextField
-        fullWidth
-        multiline
-        value={cardText}
-        name="cardText"
-        onChange={(e) => handleChange(e)}
-      ></TextField>
-      <TextField
-        fullWidth
-        multiline
-        value={cardDescription}
-        name="cardDescription"
-        onChange={(e) => handleChange(e)}
-      ></TextField>
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <KeyboardDatePicker
-          margin="normal"
-          id="date-picker-dialog"
-          label="Date picker dialog"
-          format="yyyy/MM/dd"
-          value={selectedDate}
-          onChange={handleDateChange}
-          KeyboardButtonProps={{
-            "aria-label": "change date",
-          }}
-        />
-      </MuiPickersUtilsProvider>
-      <Button onClick={(e) => handleClick(e)}>Save</Button>
+    <Box className={classes.root}>
+      <Box className="editor-wrapper">
+        <TextField
+          fullWidth
+          multiline
+          value={cardText}
+          name="cardText"
+          placeholder="Card name"
+          onChange={(e) => handleChange(e)}
+          className="text-input-field"
+        ></TextField>
+        <TextField
+          fullWidth
+          multiline
+          placeholder="Card description"
+          value={cardDescription}
+          name="cardDescription"
+          onChange={(e) => handleChange(e)}
+          className="text-input-field"
+        ></TextField>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            label="Deadline"
+            format="yyyy/MM/dd"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              "aria-label": "change date",
+            }}
+          />
+        </MuiPickersUtilsProvider>
+        <Button onClick={(e) => handleClick(e)}>Save</Button>
+      </Box>
     </Box>
   );
 };
