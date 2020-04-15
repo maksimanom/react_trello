@@ -11,6 +11,7 @@ import LoginPage from "./Component/LoginPage";
 import Header from "./Component/Header";
 import Boards from "./Component/Board";
 import CardEdit from "./Component/CardFullView/cardEdit";
+import DataView from "./Component";
 
 document.querySelector("html").style.height = "100%";
 document.querySelector("body").style.height = "100%";
@@ -41,29 +42,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme(themeStyle)}>
-      <Router>
-        <Grid container className={classes.root}>
-          <CssBaseline />
-          <Grid item xs={12}>
-            <Header setThemeStyle={setThemeStyle} themeStyle={themeStyle} />
-          </Grid>
-          <Switch>
-            <Route path="/:userId/:boardId/:cardId">
-              <CardEdit boards={boards} setBoards={setBoards} />
-            </Route>
-            <Route path="/:userId">
-              <Grid item className="boards">
-                <Boards boards={boards} setBoards={setBoards} />
-              </Grid>
-            </Route>
-            <Route path="/">
-              <Grid item className="boards">
-                <LoginPage />
-              </Grid>
-            </Route>
-          </Switch>
-        </Grid>
-      </Router>
+      <DataView themeStyle={themeStyle} setThemeStyle={setThemeStyle} />
     </ThemeProvider>
   );
 };

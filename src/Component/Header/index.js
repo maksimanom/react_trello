@@ -7,10 +7,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     padding: "10px 0 10px 10px",
     backgroundColor: theme.palette.main,
-    "& .name": {
-      "&:hover": {
-        cursor: "pointer",
-      },
+    "&:hover": {
+      cursor: "pointer",
     },
   },
 }));
@@ -23,13 +21,13 @@ const Header = ({ setThemeStyle, themeStyle }) => {
   };
 
   return (
-    <AppBar position="static" component="header" className={classes.root}>
-      <Typography
-        variant="h6"
-        color="inherit"
-        className="name"
-        onClick={() => handleClick()}
-      >
+    <AppBar
+      position="static"
+      component="header"
+      className={classes.root}
+      onClick={() => handleClick()}
+    >
+      <Typography variant="h6" color="inherit">
         Your Trello board
       </Typography>
     </AppBar>

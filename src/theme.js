@@ -7,7 +7,7 @@ const lightTheme = createMuiTheme({
 });
 const darkTheme = createMuiTheme({
   palette: {
-    main: "red",
+    main: "#4a4a4a",
   },
 });
 

@@ -7,7 +7,7 @@ setDefaultBoardIfNoPresent();
 export default ({ children }) => {
   const defaultData = JSON.parse(localStorage.getItem("trello_boards"));
   const [boards, setBoards] = React.useState(defaultData);
-  const [themeStyle, setThemeStyle] = React.useState("dark");
+  const [themeStyle, setThemeStyle] = React.useState("light");
 
   const store = {
     boards: [boards, setBoards],
