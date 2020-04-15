@@ -5,9 +5,7 @@ const addCardToBoard = (boards, boardId, text) => {
       if (board.tasks && board.tasks.length >= 1) {
         id = Math.max.apply(
           null,
-          board.tasks.map((task) => {
-            return task.id;
-          })
+          board.tasks.map((task) => task.id)
         );
       }
       board.tasks.push({ id: id + 1, text: text });

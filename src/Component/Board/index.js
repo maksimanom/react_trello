@@ -11,7 +11,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#000",
     display: "flex",
     flexFlow: "row nowrap",
-    margin: 10,
+    padding: 10,
+    height: "100%",
+    alignItems: 'flex-start',
     "& .MuiButton-root": {
       background: "rgba(255, 255, 255, 0.5)",
       color: "#fff",

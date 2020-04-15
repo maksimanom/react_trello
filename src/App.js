@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     "& .boards": {
       width: "auto",
       minWidth: "100%",
+      height: "calc( 100% - 52px )"
     },
   },
 }));

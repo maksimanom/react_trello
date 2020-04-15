@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10,
     minWidth: 250,
     maxWidth: 400,
-    height: "fit-content",
+    height: "100%",
+    overflowY: 'scroll',
     backgroundColor: "#fff",
     "& .board-title": {
       textAlign: "center",
