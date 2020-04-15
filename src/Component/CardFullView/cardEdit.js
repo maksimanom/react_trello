@@ -1,7 +1,7 @@
 import React from "react";
 
 import { withRouter } from "react-router-dom";
-import { makeStyles, Paper, Box, TextField, Button } from "@material-ui/core/";
+import { makeStyles, Box, TextField, Button } from "@material-ui/core/";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
@@ -100,7 +100,7 @@ const CardEdit = (props) => {
       cardDescription,
       selectedDate
     );
-    props.history.push("/");
+    props.history.push(`/${currentUser}`);
   };
 
   return (

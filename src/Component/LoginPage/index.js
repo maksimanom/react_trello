@@ -4,7 +4,6 @@ import { withRouter } from "react-router-dom";
 import { makeStyles, Box, TextField, Button } from "@material-ui/core/";
 const LOGIN = "admin";
 const PASS = "pass";
-const USER = { id: 0, name: "Max", surname: "Black" };
 
 const useStyles = makeStyles((theme) => ({
   root: {

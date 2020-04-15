@@ -13,11 +13,13 @@ import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import update from "immutability-helper";
 import { withRouter } from "react-router-dom";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
 import changeCardData from "../../utils/changeCardData";
 import changeBoardsAfterDnd from "../../utils/changeBoardsAfterDnd";
+import deleteBoard from "../../utils/deleteBoard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     "& .board-title": {
       textAlign: "center",
+      "& .delete-button": {
+        color: "#de0000",
+      },
       "& .MuiInputBase-input": {
         textAlign: "center",
       },
@@ -71,13 +76,11 @@ const Board = (props) => {
     if (e.target.name === "board-title__input") setNewCardName(e.target.value);
   };
   const handleClick = (e) => {
-    if (e.currentTarget.name === "change-add-card-visibility") {
+    const target = e.currentTarget;
+    if (target.name === "change-add-card-visibility") {
       setVisibleAddCardBlock(!visibleAddCardBlock);
     }
-    if (
-      e.currentTarget.name === "add-card-block__button" &&
-      inputNewCardName !== ""
-    ) {
+    if (target.name === "add-card-block__button" && inputNewCardName !== "") {
       const boardsWithNewCard = addCardToBoard(
         boards,
         boardItem.id,
@@ -95,6 +98,10 @@ const Board = (props) => {
     }
     if (newCardName === "") setNewCardName(boardItem.title);
   };
+  const handleDelete = ()=>{
+    const newBoards = deleteBoard(boards, boardItem.id);    
+    setBoards(newBoards);
+  }
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = tasks[dragIndex];
@@ -124,6 +131,10 @@ const Board = (props) => {
           onBlur={(e) => {
             handleOnBlur(e);
           }}
+        />
+        <DeleteForeverIcon
+          className="delete-button"
+          onClick={handleDelete}
         />
       </ListItem>
       <Divider component="span" />

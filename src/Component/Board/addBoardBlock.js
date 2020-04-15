@@ -24,6 +24,7 @@ const AddBoardBlock = ({ boards, setBoards }) => {
     if (e.currentTarget.name === "add-board" && addBoardInputValue!=="") {
       addBoard(boards, addBoardInputValue, setBoards);
       setVisibleAddNewBoard(!visibleAddNewBoard);
+      setAddBoardInputValue("");
     }
   };
   const handleChange = (e) => {

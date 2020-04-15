@@ -53,7 +53,7 @@ const Boards = (props) => {
   
   useEffect(() => {
     localStorage.setItem("trello_boards", JSON.stringify(boards));
-  }, [boards]);
+  }, [boards, currentUserFromRedirect]);
 
   return (
     <main className={classes.root}>
