@@ -24,10 +24,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DataView = ({ themeStyle, setThemeStyle }) => {
+  const classes = useStyles();
   const {
     ["boards"]: [boards, setBoards],
   } = React.useContext(StoreContext);
-  const classes = useStyles();
+  console.error("boards IN INDEX", boards);
+
   return (
     <Router>
       <Grid container className={classes.root}>

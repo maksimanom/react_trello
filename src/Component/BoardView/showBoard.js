@@ -16,7 +16,7 @@ import { withRouter } from "react-router-dom";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 
 import ShowCard from "./showCard";
-import addCardToBoard from "../../utils/addCard";
+import AddCardBlock from "./addCardBlock";
 import changeCardData from "../../utils/changeCardData";
 import changeBoardsAfterDnd from "../../utils/changeBoardsAfterDnd";
 import deleteBoard from "../../utils/deleteBoard";
@@ -62,9 +62,8 @@ const Board = (props) => {
   const { boardItem, boards, setBoards, userId } = props;
   if (userId !== "admin") props.history.push("/");
   const classes = useStyles();
-  const [inputNewCardName, setInputNewCardName] = React.useState("");
-  const [newCardName, setNewCardName] = React.useState(boardItem.title);
-  const [visibleAddCardBlock, setVisibleAddCardBlock] = React.useState(false);
+  const [newBoardName, setNewBoardName] = React.useState(boardItem.title);
+
   const [tasks, setTasks] = React.useState(boardItem.tasks);
 
   useEffect(() => {
@@ -72,36 +71,19 @@ const Board = (props) => {
   }, [tasks]);
 
   const handleChange = (e) => {
-    if (e.target.name === "new-card") setInputNewCardName(e.target.value);
-    if (e.target.name === "board-title__input") setNewCardName(e.target.value);
-  };
-  const handleClick = (e) => {
-    const target = e.currentTarget;
-    if (target.name === "change-add-card-visibility") {
-      setVisibleAddCardBlock(!visibleAddCardBlock);
-    }
-    if (target.name === "add-card-block__button" && inputNewCardName !== "") {
-      const boardsWithNewCard = addCardToBoard(
-        boards,
-        boardItem.id,
-        inputNewCardName
-      );
-      setVisibleAddCardBlock(!visibleAddCardBlock);
-      setInputNewCardName("");
-      setBoards(boardsWithNewCard);
-    }
+    if (e.target.name === "board-title__input") setNewBoardName(e.target.value);
   };
   const handleOnBlur = () => {
-    if (newCardName !== "") {
-      const newBoards = changeCardData(boards, boardItem.id, newCardName);
+    if (newBoardName !== "") {
+      const newBoards = changeCardData(boards, boardItem.id, newBoardName);
       setBoards(newBoards);
     }
-    if (newCardName === "") setNewCardName(boardItem.title);
+    if (newBoardName === "") setNewBoardName(boardItem.title);
   };
-  const handleDelete = ()=>{
-    const newBoards = deleteBoard(boards, boardItem.id);    
+  const handleDelete = () => {
+    const newBoards = deleteBoard(boards, boardItem.id);
     setBoards(newBoards);
-  }
+  };
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = tasks[dragIndex];
@@ -123,7 +105,7 @@ const Board = (props) => {
         <TextField
           fullWidth
           multiline
-          value={newCardName}
+          value={newBoardName}
           name="board-title__input"
           onChange={(e) => {
             handleChange(e);
@@ -132,10 +114,7 @@ const Board = (props) => {
             handleOnBlur(e);
           }}
         />
-        <DeleteForeverIcon
-          className="delete-button"
-          onClick={handleDelete}
-        />
+        <DeleteForeverIcon className="delete-button" onClick={handleDelete} />
       </ListItem>
       <Divider component="span" />
       <DndProvider backend={Backend}>
@@ -152,34 +131,11 @@ const Board = (props) => {
           );
         })}
       </DndProvider>
-      {!visibleAddCardBlock ? (
-        <ListItem
-          button
-          className="add-board-item"
-          component="button"
-          name="change-add-card-visibility"
-          onClick={(e) => handleClick(e)}
-        >
-          Add another card
-        </ListItem>
-      ) : (
-        <ListItem component="div" className="add-card-block">
-          <TextField
-            fullWidth
-            multiline
-            value={inputNewCardName}
-            name="new-card"
-            onChange={(e) => handleChange(e)}
-          />
-          <Button
-            className="add-card-block__button"
-            onClick={(e) => handleClick(e)}
-            name="add-card-block__button"
-          >
-            Add card
-          </Button>
-        </ListItem>
-      )}
+      <AddCardBlock
+        boards={boards}
+        boardItem={boardItem}
+        setBoards={setBoards}
+      />
     </List>
   );
 };
