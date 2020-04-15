@@ -91,6 +91,13 @@ const ShowCard = ({ card, boardId, index, moveCard, userId }) => {
   });
   drag(drop(ref));
 
+  const dateEndInfo = () => {
+    const date = new Date(card.dateEnd);
+    if (card.dateEnd)
+      return ""+(date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear());
+    return "no info";
+  };
+
   return (
     <div ref={ref}>
       <Link to={`/${userId}/${boardId}/${card.id}`} className={classes.link}>
@@ -103,10 +110,7 @@ const ShowCard = ({ card, boardId, index, moveCard, userId }) => {
               { cardExpired: daysLeft < 0 }
             )}
           >
-            <Tooltip
-              title={"Finish to: " + (card.dateEnd || "no info")}
-              placement="top"
-            >
+            <Tooltip title={"Finish to: " + dateEndInfo()} placement="top">
               <Box>
                 <p>{card.text}</p>
               </Box>
