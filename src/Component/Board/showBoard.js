@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 
 import {
   makeStyles,
@@ -12,12 +12,12 @@ import {
 import { DndProvider } from "react-dnd";
 import Backend from "react-dnd-html5-backend";
 import update from "immutability-helper";
+import { withRouter } from "react-router-dom";
 
 import ShowCard from "./showCard";
 import addCardToBoard from "../../utils/addCard";
 import changeCardData from "../../utils/changeCardData";
 import changeBoardsAfterDnd from "../../utils/changeBoardsAfterDnd";
-import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Board = ({ boardItem, boards, setBoards }) => {
+const Board = (props) => {
+  const { boardItem, boards, setBoards, userId } = props;
+  if (userId !== "admin") props.history.push("/");
   const classes = useStyles();
   const [inputNewCardName, setInputNewCardName] = React.useState("");
   const [newCardName, setNewCardName] = React.useState(boardItem.title);
@@ -72,7 +74,10 @@ const Board = ({ boardItem, boards, setBoards }) => {
     if (e.currentTarget.name === "change-add-card-visibility") {
       setVisibleAddCardBlock(!visibleAddCardBlock);
     }
-    if (e.currentTarget.name === "add-card-block__button" && inputNewCardName!=="") {
+    if (
+      e.currentTarget.name === "add-card-block__button" &&
+      inputNewCardName !== ""
+    ) {
       const boardsWithNewCard = addCardToBoard(
         boards,
         boardItem.id,
@@ -88,7 +93,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
       const newBoards = changeCardData(boards, boardItem.id, newCardName);
       setBoards(newBoards);
     }
-    if (newCardName==="") setNewCardName(boardItem.title)
+    if (newCardName === "") setNewCardName(boardItem.title);
   };
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
@@ -131,6 +136,7 @@ const Board = ({ boardItem, boards, setBoards }) => {
               boardId={boardItem.id}
               index={index}
               moveCard={moveCard}
+              userId={userId}
             />
           );
         })}
@@ -167,4 +173,4 @@ const Board = ({ boardItem, boards, setBoards }) => {
   );
 };
 
-export default Board;
+export default withRouter(Board);

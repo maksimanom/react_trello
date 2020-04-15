@@ -5,6 +5,7 @@ import { makeStyles, Grid } from "@material-ui/core/";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { StoreContext } from "./utils/store";
+import LoginPage from "./Component/LoginPage";
 import Header from "./Component/Header";
 import Boards from "./Component/Board";
 import CardEdit from "./Component/CardFullView/cardEdit";
@@ -40,12 +41,17 @@ const App = () => {
           <Header />
         </Grid>
         <Switch>
-          <Route path="/card/:boardId/:cardId">
+          <Route path="/:userId/:boardId/:cardId">
             <CardEdit boards={boards} setBoards={setBoards} />
+          </Route>
+          <Route path="/:userId">
+            <Grid item className="boards">
+              <Boards boards={boards} setBoards={setBoards} />
+            </Grid>
           </Route>
           <Route path="/">
             <Grid item className="boards">
-              <Boards boards={boards} setBoards={setBoards} />
+              <LoginPage />
             </Grid>
           </Route>
         </Switch>

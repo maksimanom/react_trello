@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/";
+import { withRouter } from "react-router-dom";
 
 import Board from "./showBoard";
 import AddBoardBlock from "./addBoardBlock";
@@ -42,9 +43,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Boards = ({ boards, setBoards }) => {
+const Boards = (props) => {
   const classes = useStyles();
+  const { boards, setBoards } = props;
 
+  const currentUserFromRedirect = props.match.params.userId;  
+  const currentUser = JSON.parse(sessionStorage.getItem("user"));
+  if (currentUser !== currentUserFromRedirect) props.history.push("/");
+  
   useEffect(() => {
     localStorage.setItem("trello_boards", JSON.stringify(boards));
   }, [boards]);
@@ -59,6 +65,7 @@ const Boards = ({ boards, setBoards }) => {
               boardItem={boardItem}
               boards={boards}
               setBoards={setBoards}
+              userId={currentUser}
             ></Board>
           );
         })}
@@ -67,4 +74,4 @@ const Boards = ({ boards, setBoards }) => {
     </main>
   );
 };
-export default Boards;
+export default withRouter(Boards);

@@ -26,8 +26,8 @@ const useStyles = makeStyles((theme) => ({
       background: "#fff",
       borderRadius: 3,
       padding: 10,
-      "& .text-input-field":{
-        padding: 10
+      "& .text-input-field": {
+        padding: 10,
       },
       "& .MuiTextField-root	": {
         background: "#fff",
@@ -62,6 +62,8 @@ const getCardInfo = (boards, boardId, cardId) => {
 };
 
 const CardEdit = (props) => {
+  const currentUser = JSON.parse(sessionStorage.getItem("user"));
+  if (currentUser !== "admin") props.history.push("/");
   const classes = useStyles();
   const { boards, setBoards, match } = props;
   const { boardId, cardId } = match.params;

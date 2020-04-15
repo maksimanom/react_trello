@@ -51,7 +51,7 @@ const daysDifference = (cardDateEnd) => {
   return daysLeft;
 };
 
-const ShowCard = ({ card, boardId, index, moveCard }) => {
+const ShowCard = ({ card, boardId, index, moveCard, userId }) => {
   const classes = useStyles();
   const daysLeft = daysDifference(card.dateEnd);
   const { id } = card;
@@ -93,7 +93,7 @@ const ShowCard = ({ card, boardId, index, moveCard }) => {
 
   return (
     <div ref={ref}>
-      <Link to={`/card/${boardId}/${card.id}`} className={classes.link}>
+      <Link to={`/${userId}/${boardId}/${card.id}`} className={classes.link}>
         <ListItem button className={classes.root}>
           <div
             className={classnames(
