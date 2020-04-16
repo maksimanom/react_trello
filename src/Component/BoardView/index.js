@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
     height: "100%",
     alignItems: "flex-start",
-    "& .board-wrapper":{
-      display: 'flex',
+    "& .board-wrapper": {
+      display: "flex",
       height: "100%",
-      alignItems: 'flex-start',
+      alignItems: "flex-start",
     },
     "& .MuiButton-root": {
       background: "rgba(255, 255, 255, 0.5)",
@@ -46,14 +46,11 @@ const useStyles = makeStyles((theme) => ({
 const Boards = (props) => {
   const classes = useStyles();
   const { boards, setBoards } = props;
+  console.log("BOARDS 3", boards);
 
-  const currentUserFromRedirect = props.match.params.userId;  
+  const currentUserFromRedirect = props.match.params.userId;
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
   if (currentUser !== currentUserFromRedirect) props.history.push("/");
-  
-  useEffect(() => {
-    localStorage.setItem("trello_boards", JSON.stringify(boards));
-  }, [boards, currentUserFromRedirect]);
 
   return (
     <main className={classes.root}>

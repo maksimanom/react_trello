@@ -1,7 +1,5 @@
 const deleteBoard = (boards, boardId) => {
-  const newBoards = boards.filter((board)=>{
-    return board.id!==boardId
-  });
-  return newBoards;
+  const newBoards = boards.filter((board) => board.id !== boardId);
+  return newBoards.concat([]);
 };
 export default deleteBoard;

@@ -22,6 +22,5 @@ const changeBoards = (
     return board;
   });
   setBoards(newBoards);
-  localStorage.setItem("trello_boards", JSON.stringify(newBoards));
 };
 export default changeBoards;

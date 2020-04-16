@@ -60,10 +60,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Board = (props) => {
   const { boardItem, boards, setBoards, userId } = props;
+  console.log("BOARDS 4", boards);
+
   if (userId !== "admin") props.history.push("/");
   const classes = useStyles();
   const [newBoardName, setNewBoardName] = React.useState(boardItem.title);
-
   const [tasks, setTasks] = React.useState(boardItem.tasks);
 
   useEffect(() => {
@@ -80,10 +81,14 @@ const Board = (props) => {
     }
     if (newBoardName === "") setNewBoardName(boardItem.title);
   };
+
   const handleDelete = () => {
     const newBoards = deleteBoard(boards, boardItem.id);
+    localStorage.setItem("trello_boards", JSON.stringify(newBoards));
     setBoards(newBoards);
+    console.log("BOARDS 555", newBoards);
   };
+
   const moveCard = useCallback(
     (dragIndex, hoverIndex) => {
       const dragCard = tasks[dragIndex];

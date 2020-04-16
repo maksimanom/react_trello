@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles, Grid } from "@material-ui/core/";
@@ -28,7 +28,10 @@ const DataView = ({ themeStyle, setThemeStyle }) => {
   const {
     ["boards"]: [boards, setBoards],
   } = React.useContext(StoreContext);
-  console.error("boards IN INDEX", boards);
+  useEffect(() => {
+    localStorage.setItem("trello_boards", JSON.stringify(boards));
+  }, [boards]);
+  console.log("BOARDS IN INDEX 2", boards);
 
   return (
     <Router>
