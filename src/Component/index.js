@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { StoreContext } from "../utils/store";
 import LoginPage from "./LoginPage";
 import Header from "./Header";
-import Boards from "./Board";
+import Boards from "./BoardView";
 import CardEdit from "./CardFullView/cardEdit";
 
 const useStyles = makeStyles((theme) => ({
