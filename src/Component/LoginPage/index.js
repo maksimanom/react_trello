@@ -38,11 +38,9 @@ const LoginPage = (props) => {
   const [pass, setPass] = React.useState("");
 
   const handleClick = () => {
-    if (login !== "" && pass !== "") {
-      if (login === LOGIN && pass === PASS) {
-        sessionStorage.setItem("user", JSON.stringify(login))
-        props.history.push(`/boards/${login}`);
-      }
+    if (login === LOGIN && pass === PASS) {
+      sessionStorage.setItem("user", JSON.stringify(login));
+      props.history.push(`/boards/${login}`);
     }
   };
   const handleChange = (e) => {

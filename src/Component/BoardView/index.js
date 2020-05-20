@@ -61,7 +61,7 @@ const Boards = (props) => {
         {boards.map((boardItem, index) => {
           return (
             <Board
-              key={index}
+              key={boardItem.id}
               boardItem={boardItem}
               boards={boards}
               setBoards={setBoards}

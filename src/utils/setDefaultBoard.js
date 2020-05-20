@@ -1,10 +1,7 @@
 const ls = localStorage;
+const trelloBoards = JSON.parse(ls.getItem("trello_boards"));
 const setDefaultBoardIfNoPresent = () => {
-  if (
-    JSON.parse(ls.getItem("trello_boards")) === null ||
-    JSON.parse(ls.getItem("trello_boards")) === undefined ||
-    JSON.parse(ls.getItem("trello_boards")).length === 0
-  ) {
+  if (!trelloBoards || !trelloBoards.length) {
     ls.setItem(
       "trello_boards",
       JSON.stringify([

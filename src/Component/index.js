@@ -28,7 +28,6 @@ const DataView = ({ themeStyle, setThemeStyle }) => {
   const {
     ["boards"]: [boards, setBoards],
   } = React.useContext(StoreContext);
-  console.error("boards IN INDEX", boards);
 
   return (
     <Router>
