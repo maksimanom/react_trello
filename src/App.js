@@ -6,10 +6,6 @@ import theme from "./theme";
 import { StoreContext } from "./utils/store";
 import DataView from "./Component";
 
-document.querySelector("html").style.height = "100%";
-document.querySelector("body").style.height = "100%";
-document.querySelector(".root").style.height = "100%";
-
 const App = () => {
   const {
     ["themeStyle"]: [themeStyle, setThemeStyle],
