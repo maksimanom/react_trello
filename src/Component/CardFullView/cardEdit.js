@@ -8,6 +8,7 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import changeBoards from "../../utils/changeBoards";
+import useGetCardInfo from "../../hooks/useGetCardInfo";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,45 +41,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getCardInfo = (boards, boardId, cardId) => {
-  boardId = parseInt(boardId);
-  cardId = parseInt(cardId);
-  let cardTextDefault = "";
-  let cardDescriptionDefault = "";
-  let cardDateEnd = "";
-  boards.map((board) => {
-    if (board.id === boardId) {
-      board.tasks.map((card) => {
-        if (card.id === cardId) {
-          cardTextDefault = card.text;
-          cardDescriptionDefault = card.description;
-          cardDateEnd = card.dateEnd;
-        }
-        return 0;
-      });
-    }
-  });
-  return { cardTextDefault, cardDescriptionDefault, cardDateEnd };
-};
-
 const CardEdit = (props) => {
   const currentUser = JSON.parse(sessionStorage.getItem("user"));
   if (currentUser !== "admin") props.history.push("/");
   const classes = useStyles();
   const { boards, setBoards, match } = props;
   const { boardId, cardId } = match.params;
-  const { cardTextDefault, cardDescriptionDefault, cardDateEnd } = getCardInfo(
-    boards,
-    boardId,
-    cardId
-  );
-  const [cardText, setCardText] = React.useState(cardTextDefault);
-  const [cardDescription, setCardDescription] = React.useState(
-    cardDescriptionDefault
-  );
-  const [selectedDate, setSelectedDate] = React.useState(
-    cardDateEnd || new Date()
-  );
+  const {
+    cardText,
+    setCardText,
+    cardDescription,
+    setCardDescription,
+    selectedDate,
+    setSelectedDate,
+  } = useGetCardInfo(boards, boardId, cardId);
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
