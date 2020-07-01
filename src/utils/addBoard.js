@@ -1,15 +1,18 @@
 const addBoard = (boards, title, setBoards) => {
-  let newBoardId = Math.max.apply(
-    null,
-    boards.map((board) => board.id)
-  );
-  newBoardId += 1;
+  const findMaxBoardId = () => {
+    if (boards.length) {
+      return Math.max.apply(
+        null,
+        boards.map((board) => board.id)
+      );
+    }
+    return -1;
+  };
   const newBoard = {
-    id: newBoardId === null ? 0 : newBoardId,
+    id: findMaxBoardId() + 1,
     title: title,
     tasks: [],
   };
-  const newBoardsList = [...boards].concat([newBoard]);
-  setBoards(newBoardsList);
+  setBoards(prev => [...prev, newBoard]);
 };
 export default addBoard;
