@@ -77,8 +77,9 @@ const Board = (props) => {
     if (newBoardName !== "") {
       const newBoards = changeCardData(boards, boardItem.id, newBoardName);
       setBoards(newBoards);
+      return
     }
-    if (newBoardName === "") setNewBoardName(boardItem.title);
+    setNewBoardName(boardItem.title);
   };
   const handleDelete = () => {
     const newBoards = deleteBoard(boards, boardItem.id);
