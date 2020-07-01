@@ -4,7 +4,11 @@ const addBoard = (boards, title, setBoards) => {
     boards.map((board) => board.id)
   );
   newBoardId += 1;
-  const newBoard = { id: newBoardId, title: title, tasks: [] };
+  const newBoard = {
+    id: newBoardId === null ? 0 : newBoardId,
+    title: title,
+    tasks: [],
+  };
   const newBoardsList = [...boards].concat([newBoard]);
   setBoards(newBoardsList);
 };

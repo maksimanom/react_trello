@@ -1,16 +1,19 @@
 const addCardToBoard = (boards, boardId, text) => {
-  let newBoards = boards.map((board) => {
-    if (board.id === boardId) {
-      let id = 0;
-      if (board.tasks && board.tasks.length >= 1) {
-        id = Math.max.apply(
-          null,
-          board.tasks.map((task) => task.id)
-        );
-      }
-      board.tasks.push({ id: id + 1, text: text });
+  const newBoards = [...boards];
+  const board = newBoards.find((board) => board.id === boardId);
+  const maxId = () => {
+    if (board.tasks.length) {
+      return Math.max.apply(
+        0,
+        board.tasks.map((task) => task.id)
+      );
+    } else {
+      return -1;
     }
-    return board;
+  };
+  board.tasks.push({
+    id: maxId() + 1,
+    text: text,
   });
   return newBoards;
 };
