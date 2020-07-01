@@ -25,7 +25,7 @@ const Header = ({ setThemeStyle, themeStyle }) => {
       position="static"
       component="header"
       className={classes.root}
-      onClick={() => handleClick()}
+      onClick={handleClick}
     >
       <Typography variant="h6" color="inherit">
         Your Trello board

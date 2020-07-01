@@ -94,7 +94,7 @@ const ShowCard = ({ card, boardId, index, moveCard, userId }) => {
   const dateEndInfo = () => {
     const date = new Date(card.dateEnd);
     if (card.dateEnd)
-      return ""+(date.getDate() + "." + (date.getMonth()+1) + "." + date.getFullYear());
+      return `${date.getDate()}.${(date.getMonth()+1)}${date.getFullYear()}`;
     return "no info";
   };
 

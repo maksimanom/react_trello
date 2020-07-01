@@ -83,11 +83,15 @@ const CardEdit = (props) => {
     setSelectedDate(date);
   };
   const handleChange = (e) => {
-    if (e.target.name === "cardText") {
-      setCardText(e.target.value);
-    }
-    if (e.target.name === "cardDescription") {
-      setCardDescription(e.target.value);
+    switch (e.target.name) {
+      case "cardText":
+        setCardText(e.target.value);
+        break;
+      case "cardDescription":
+        setCardDescription(e.target.value);
+        break;
+      default:
+        break;
     }
   };
   const handleClick = () => {
@@ -137,7 +141,7 @@ const CardEdit = (props) => {
             }}
           />
         </MuiPickersUtilsProvider>
-        <Button onClick={(e) => handleClick(e)}>Save</Button>
+        <Button onClick={handleClick}>Save</Button>
       </Box>
     </Box>
   );

@@ -35,37 +35,33 @@ const AddCardBlock = ({ boards, boardItem, setBoards }) => {
     if (e.target.name === "new-card") setInputNewCardName(e.target.value);
   };
 
-  return (
-    <>
-      {!visibleAddCardBlock ? (
-        <ListItem
-          button
-          className="add-board-item"
-          component="button"
-          name="change-add-card-visibility"
-          onClick={(e) => handleClick(e)}
-        >
-          Add another card
-        </ListItem>
-      ) : (
-        <ListItem component="div" className="add-card-block">
-          <TextField
-            fullWidth
-            multiline
-            value={inputNewCardName}
-            name="new-card"
-            onChange={(e) => handleChange(e)}
-          />
-          <Button
-            className="add-card-block__button"
-            onClick={(e) => handleClick(e)}
-            name="add-card-block__button"
-          >
-            Add card
-          </Button>
-        </ListItem>
-      )}
-    </>
+  return !visibleAddCardBlock ? (
+    <ListItem
+      button
+      className="add-board-item"
+      component="button"
+      name="change-add-card-visibility"
+      onClick={(e) => handleClick(e)}
+    >
+      Add another card
+    </ListItem>
+  ) : (
+    <ListItem component="div" className="add-card-block">
+      <TextField
+        fullWidth
+        multiline
+        value={inputNewCardName}
+        name="new-card"
+        onChange={(e) => handleChange(e)}
+      />
+      <Button
+        className="add-card-block__button"
+        onClick={(e) => handleClick(e)}
+        name="add-card-block__button"
+      >
+        Add card
+      </Button>
+    </ListItem>
   );
 };
 export default AddCardBlock;
